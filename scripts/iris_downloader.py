@@ -1,8 +1,12 @@
+import os
 import urllib.request as testfile
 
 # testfile = urllib.request
 path = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/"
 where = "../data/iris/"
+
+if not os.path.exists(where):
+    os.makedirs(where)
 
 print ("Downloading...")
 
