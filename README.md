@@ -10,7 +10,8 @@ Replace `ENV_NAME` with a name of your choice.
 
 # Usage
 * See `src/test.py` for a commented usage of the implemented CART algo.
-* Folder ``scripts`` contains python scripts to download the data used in the jupyter notebooks inside folder ``working_examples``.
+* Folder ``scripts`` contains python scripts to download the data used in the jupyter notebooks.
+* Jupyter notebooks show-casing the working are inside folder ``working_examples``.
 * Look at ``answers.md`` for the assignment.
 
 # Credits
