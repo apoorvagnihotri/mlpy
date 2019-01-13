@@ -1,14 +1,23 @@
-def is_numeric(val):
+import pandas as pd
+
+def is_numeric(rows, col):
     """Returns true if val is numeric"""
-    return isinstance(val, int) or isinstance(val, float)
+    numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
+    return rows.dtypes.values[col] in numerics
 
 def label_counts(rows):
     """usefull only for categorical data"""
-    counts = {}
-    for row in rows:
-        label = row[-1]
-        try:
-            counts[label] += 1
-        except KeyError:
-            counts[label] = 1
+    counts = rows.iloc[:, -1].value_counts()
     return counts
+
+def most_probable_label(rows):
+    '''Gives the label that comes the most number of times
+    in the rows provided.
+    @ find a counterpart for regression
+    '''
+    counts = label_counts(rows)
+    return counts.keys()[0]
+
+def unique_vals(rows, col):
+    return set([row[col] for row in rows])
+

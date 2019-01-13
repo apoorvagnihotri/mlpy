@@ -11,8 +11,8 @@ class Criterion:
         '''Finds the information gain w.r.t. previous data in parent
         node.
         '''
-        weight_left = float(len(left)) 
-        weight_left /= len(left) + len(right)
+        weight_left = float(left.shape[0])
+        weight_left /= left.shape[0] + right.shape[0]
         left_impurity = weight_left * self.impurity(left)
         right_impurity = (1 - weight_left) * self.impurity(right)
         new_impurity = current_impurity - left_impurity - right_impurity
@@ -27,8 +27,8 @@ class Gini(Criterion):
         the rows provided.
         '''
         counts = utils.label_counts(rows)
-        total = float(len(rows))
+        total = rows.shape[0]
         gini_im = 1
-        for count in counts.values():
+        for count in counts.values:
             gini_im -= (count/total)**2
         return gini_im
