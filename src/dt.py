@@ -20,10 +20,10 @@ class DecisionTree:
     def __init__(self, 
                  method, 
                  max_depth, 
-                 max_points):
+                 min_points):
         self.method = method
         self.max_depth = max_depth
-        self.max_points = max_points
+        self.min_points = min_points
         self.criterion = self._make_metric_class()
         self.DecisionNode = DecisionNode
         self.root = None
@@ -83,8 +83,13 @@ class DecisionTree:
         we don't have any difference in labels
         @add support for regression
         '''
-        if depth == self.max_depth: # forced leaf
+        if depth == self.max_depth: # tree depth reached
             return self.PredictionNode(rows)
+        
+        # return prediction node if min_points crossed
+        if not isinstance(self.min_points, type(None)):
+            if min_points <= rows.shape[0]:
+                return self.PredictionNode(rows)
 
         gain, question = self._best_split(rows)
         if gain == 0:               # we have encountered a leaf

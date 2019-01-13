@@ -32,7 +32,7 @@ class PredNodeClassify(PredictionNode):
         super().__init__(rows)    
 
     def _give_prediction(self, rows):
-        print ("pritin the most probablie clss", helper.most_probable_label(rows))
+#         print ("pritin the most probablie clss", helper.most_probable_label(rows))
         return helper.most_probable_label(rows)
         
 class PredNodeRegress(PredictionNode):

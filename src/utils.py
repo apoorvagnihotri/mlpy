@@ -1,8 +1,34 @@
 import pandas as pd
+from nodes import *
+import utils as helper
+
+numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64', int, float]
+
+def parser(node):
+    print(parse(node))
+    return
+
+def parse(node, level=1):
+    f = str(type(node)) == "<class 'nodes.DecisionNode'>"
+    if f:
+        if helper.is_num(node.question.wedge):
+            operator = [">=", "<"]
+        else:
+            operator = ["=", "!="]
+
+        ret = "Question: Is " + str(node.question.col_index) + \
+        "th Column " + operator[0] + " " + str(node.question.wedge)+"\n"
+        ret += level*"  " + "T: "+parse(node.l_child, level+1)
+        ret += level*"  " + "F: "+parse(node.r_child, level+1)
+    else:
+        ret = "Predict: " + str(node.get_prediction()) + "\n"
+    return ret
+
+def is_num(val):
+    return type(val) in numerics
 
 def is_numeric(rows, col):
     """Returns true if val is numeric"""
-    numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
     return rows.dtypes.values[col] in numerics
 
 def label_counts(rows):
