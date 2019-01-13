@@ -9,11 +9,10 @@ conda create --name ENV_NAME --file Requirements.txt
 Replace `ENV_NAME` with a name of your choice.
 
 # Usage
-* See `src/test.py` for a commented usage of the implemented CART algo.
+* See `src/q2.ipynb` for a commented usage of the implemented CART algo.
 * Folder ``scripts`` contains python scripts to download the data used in the jupyter notebooks.
-* Jupyter notebooks show-casing the working are inside folder ``working_examples``.
-* Look at ``answers.md`` for the assignment.
+* Look at ``answer_sheet.md`` for the assignment.
 
 # Credits
-The implementation I have here takes ideas from Josh Gordan's implementation of Classification Decision Trees as a part of [online video](https://www.youtube.com/watch?v=LDRbO9a6XPU).
+The implementation I have here, takes ideas from Josh Gordan's implementation of Classification Decision Trees as a part of [online video](https://www.youtube.com/watch?v=LDRbO9a6XPU).
 
