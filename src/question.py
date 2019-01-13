@@ -23,3 +23,12 @@ class Question:
         left = rows[mask]
         right = rows[~mask]
         return left, right
+   
+    def is_satified(self, row):
+        Row = row.to_frame().transpose()
+        left, right = self.divide_on_question(Row)
+#         print (Row, type(Row), type(row))
+        if left.shape[0]==1:
+            return True
+        else:
+            return False
