@@ -8,7 +8,7 @@ But actually this is method of including `Day #` in training is foolish as there
 
 	Therefore I feel choosing to include `Day #` in the training set would not be helpful at all and would actually be bad for us.
 
-* [Q1b Code](https://github.com/k0pch4/decision-trees/blob/master/src/q1b.ipynb)
+* [Q1b Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q1b.ipynb)
 One of the basic way to remove `NaN` is to replace the `NaN` with `mean`, `mode` or `median`. Since outlook is a categorical feature `mode` or `median` would make more sense.
 We replace ``Day-3``'s outlook with the `mode` = `rainy` or `sunny` as both of them occur 5 times.
 
@@ -19,5 +19,10 @@ We replace ``Day-3``'s outlook with the `mode` = `rainy` or `sunny` as both of t
 ---
 
 ### Answer 2
-[Q2 Code](https://github.com/k0pch4/decision-trees/blob/master/src/q2.ipynb), [`src` folder](https://github.com/k0pch4/decision-trees/tree/master/src)
-My Implementation imports a few files already in the repository, residing in the `src` folder of the repository.
+* [dt.py](https://github.com/k0pch4/decision-trees/blob/master/src/dt.py), [`src`](https://github.com/k0pch4/decision-trees/tree/master/src)
+My Implementation imports a few files with custom functions and classes. Have a look at the `src` folder of the repository.
+
+* [Q2b Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q2b.ipynb)
+Shows the usage of the implementation on IRIS dataset. The accuracy with this implementation of decision tree comes out to be ` ` and it comes out to be `0.95` with the sklearn's implementation.
+
+* [Q2c]
