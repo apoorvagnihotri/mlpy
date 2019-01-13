@@ -9,7 +9,8 @@ class Criterion:
         
     def info_gain(self, left, right, current_impurity):
         '''Finds the information gain w.r.t. previous data in parent
-        node.
+        node. The metric is decided by the child, STD, MSE, Gini or
+        something else.
         '''
         weight_left = float(left.shape[0])
         weight_left /= left.shape[0] + right.shape[0]
@@ -32,3 +33,14 @@ class Gini(Criterion):
         for count in counts.values:
             gini_im -= (count/total)**2
         return gini_im
+
+class STD(Criterion):
+    def __init__(self):
+        pass
+    
+    def impurity(self, rows):
+        '''Calculates the STD on the y values
+        corresponding to the rows provided.
+        '''
+        regress = rows.iloc[:, -1]
+        return regress.std()
