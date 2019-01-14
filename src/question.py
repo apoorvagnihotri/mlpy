@@ -15,10 +15,8 @@ class Question:
         Assuming rows is a pandas Data Frame
         '''
         if helper.is_numeric(rows, self.col_index):
-#             print (self.col_index, "is numeric")
             mask = rows.iloc[:, self.col_index] >= self.wedge
         else:
-#             print (self.col_index, "isn't numeric")
             mask = rows.iloc[:, self.col_index] == self.wedge
         left = rows[mask]
         right = rows[~mask]
@@ -27,7 +25,6 @@ class Question:
     def is_satified(self, row):
         Row = row.to_frame().transpose()
         left, right = self.divide_on_question(Row)
-#         print (Row, type(Row), type(row))
         if left.shape[0]==1:
             return True
         else:

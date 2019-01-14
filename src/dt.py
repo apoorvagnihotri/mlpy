@@ -11,7 +11,7 @@ Credits ^^^
 
 import criterion
 from question import Question
-from nodes import DecisionNode, PredNodeClassify, PredNodeRegress
+import nodes
 
 class DecisionTree:
     """you don't want to instantiate this
@@ -25,7 +25,7 @@ class DecisionTree:
         self.max_depth = max_depth
         self.min_points = min_points
         self.criterion = self._make_metric_class()
-        self.DecisionNode = DecisionNode
+        self.DecisionNode = nodes.DecisionNode
         self.root = None
         
     def train(self, rows):
@@ -124,7 +124,7 @@ class DecisionTreeClassifier(DecisionTree):
                  method="gini",
                  max_depth=2,
                  max_points=None):
-        self.PredictionNode = PredNodeClassify    # Prediction node is 
+        self.PredictionNode = nodes.PredNodeClassify    # Prediction node is 
                                             # different in case of Regression
         super().__init__(method,
                          max_depth,
@@ -138,7 +138,7 @@ class DecisionTreeRegression(DecisionTree):
                  method="std",
                  max_depth=2,
                  max_points=None):
-        self.PredictionNode = PredNodeRegress    # Prediction node is 
+        self.PredictionNode = nodes.PredNodeRegress    # Prediction node is 
                                                  # different in case of Regression
         super().__init__(method,
                          max_depth,

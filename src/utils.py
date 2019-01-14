@@ -1,8 +1,13 @@
 import pandas as pd
+import numpy as np
 from nodes import *
 import utils as helper
 
-numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64', int, float]
+numerics = ['int16', 'int32', 'int64', 'float16',
+            'float32', 'float64', int, float, 
+            np.int16, np.int32, np.int64, np.float16,
+            np.float32, np.float64]
+
 
 def parser(node):
     print(parse(node))

@@ -9,10 +9,10 @@ But actually this is method of including `Day #` in training is foolish as there
 	Therefore I feel choosing to include `Day #` in the training set would not be helpful at all and would actually be bad for us.
 
 * [Q1b Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q1b.ipynb)
-One of the basic way to remove `NaN` is to replace the `NaN` with `mean`, `mode` or `median`. Since outlook is a categorical feature `mode` or `median` would make more sense.
+One of the basic ways to remove `NaN` is to replace the `NaN` with `mean`, `mode` or `median`. Since outlook is a categorical feature `mode` or `median` would make more sense.
 We replace ``Day-3``'s outlook with the `mode` = `rainy` or `sunny` as both of them occur 5 times.
 
-	We now use our implementation to build a decision tree for the unwrangled data and print the decisions below. Have a look at the notebook liked above.
+	We now use our implementation to build a decision tree for the unwrangled data and the original data. We see that decision tree learnt is different both cases.
 
 	![](https://i.imgur.com/Xw8luj9.png)
 
@@ -23,6 +23,40 @@ We replace ``Day-3``'s outlook with the `mode` = `rainy` or `sunny` as both of t
 My Implementation imports a few files with custom functions and classes. Have a look at the `src` folder of the repository.
 
 * [Q2b Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q2b.ipynb)
-Shows the usage of the implementation on IRIS dataset. The accuracy with this implementation of decision tree comes out to be ` ` and it comes out to be `0.95` with the sklearn's implementation.
+Shows the usage of the implementation on IRIS dataset. The accuracy with this implementation of decision tree comes out to be `0.977` and it comes out to be `1.0` with the sklearn's implementation.
 
-* [Q2c]
+* [Q2c Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q2c.ipynb)
+The optimal ``depth`` in my implementation came out to be equal to `5` for the IRIS dataset. Have a look at the notebook above.
+
+---
+
+### Answer 3
+[Q3 Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q3.ipynb)
+Visit the above link to look at the demo of working on a regression problem using my implementation.
+
+---
+
+### Answer 4
+[Q4 Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q4.ipynb)
+Visit the above link to look at the difference in the performance with my implementation vs sklearn's.
+
+---
+
+### Answer 5
+[Q5 Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q4.ipynb)
+Visit the above link to look at the visualizations for the DT in my implementation.
+I didn't use dtreeviz as the library is implemented such that it takes in SKLearn Objects. And I implemented a graphichal way to store the decision tree.
+
+---
+
+### Answer 6
+
+
+---
+
+### Answer 7
+[Q7 Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q7.ipynb)
+
+
+
+---
