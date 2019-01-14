@@ -56,7 +56,12 @@ I didn't use dtreeviz as the library is implemented such that it takes in SKLear
 
 ### Answer 7
 [Q7 Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q7.ipynb)
+According the documentations of sklearn, we know that the complexity of Decision trees is devided in the following way:
+`m` = # of Features
+`n` = # of Samples
+* Training - `m*n*log(n)`
+* Predicting - `log(n)`
 
-
+Since we are working with **small `m` and `n`** due to computational limits we are not able to truely appretiate the time complexity.
 
 ---
