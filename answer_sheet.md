@@ -48,7 +48,7 @@ Visit the above link to look at the difference in the performance with my implem
 
 ### Answer 5
 
-[Q5 Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q4.ipynb)
+[Q5 Notebook](https://github.com/k0pch4/decision-trees/blob/master/src/q5.ipynb)
 Visit the above link to look at the visualizations for the DT in my implementation.
 I didn't use dtreeviz as the library is implemented such that it takes in SKLearn Objects. And I implemented a graphical way to store the decision tree.
 
