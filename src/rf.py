@@ -12,6 +12,7 @@ from dt import DecisionTreeClassifier, \
 from multiprocessing import Pool
 import utils as helper
 import pandas as pd
+import numpy as np
 
 class RandomForest:
     """you don't want to instantiate this
@@ -63,9 +64,22 @@ class RandomForest:
     def predict(self, rows):
         self.predict_rows = rows
         
-        # start jobs
+        # start jobs and return prediction of every dt
         with Pool(processes=self.jobs) as pool:
-            preds = pool.map(self._thread_predict,
+            self.preds = pool.map(self._thread_predict,
+                                  range(self.num_of_trees))
+        """ For the case of 2 trees
+        pred 1
+        pred 2
+        pred 3
+        ---
+        pred 1
+        pred 2
+        pred 3
+        """
+        # reduce to one prediction @TODO
+        with Pool(processes=self.jobs) as pool:
+            preds = pool.map(self._prediction_function,
                              range(self.num_of_trees))
         return self._prediction_function(preds)
     
@@ -120,4 +134,5 @@ class RandomForestRegression(RandomForest):
                          jobs)
     
     def _prediction_function(self, preds):
-        return mean(preds)
+        print (preds)
+        return np.array(preds).mean
