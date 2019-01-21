@@ -88,10 +88,10 @@ def best_k(folds, depths):
 
 
 def parser(node):
-    print(parse(node))
+    print(_parse(node))
     return
 
-def parse(node, level=1):
+def _parse(node, level=1):
     f = str(type(node)) == "<class 'nodes.DecisionNode'>"
     if f:
         if helper.is_num(node.question.wedge):
@@ -101,8 +101,8 @@ def parse(node, level=1):
 
         ret = "Question: Is " + str(node.question.col_index) + \
         "th Column " + operator[0] + " " + str(node.question.wedge)+"\n"
-        ret += level*"  " + "T: "+parse(node.l_child, level+1)
-        ret += level*"  " + "F: "+parse(node.r_child, level+1)
+        ret += level*"  " + "T: "+_parse(node.l_child, level+1)
+        ret += level*"  " + "F: "+_parse(node.r_child, level+1)
     else:
         ret = "Predict: " + str(node.get_prediction()) + "\n"
     return ret
