@@ -9,6 +9,28 @@ numerics = ['int16', 'int32', 'int64', 'float16',
             np.int16, np.int32, np.int64, np.float16,
             np.float32, np.float64]
 
+def random_list(N, samples, seed=0):
+    """Returns a list of uniformly distributed
+    random integers ranging from [1, modulus].
+    """
+    modulus = N
+    length = samples
+    lis = []
+    x = random_no(seed)
+    lis.append(x%modulus + 1)
+    for i in range(length - 1):
+        x = random_no(x)
+        lis.append(x%modulus + 1)
+    return lis
+
+def random_no(last):
+    a = 2147483629
+    c = 2147483587
+    m = pow(2, 32) - 1
+    lis = []
+    X_next = ((last*a) + c)%m
+    return X_next
+
 def nested_cross(dTrain, depths, num_valid):
     folds = make_folds(dTrain, num_valid)
     # holding out test
