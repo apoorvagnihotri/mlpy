@@ -56,17 +56,22 @@ class RandomForest:
         threads
         """
         method, max_depth, min_points, frac = tupl
-        rows = self.rows.sample(frac=frac)
+        rows_without_label = self.rows.iloc[:, :-1].sample(frac=frac, axis = 1)
+        rows = pd.concat((rows_without_label, self.rows.iloc[:, -1]), axis = 1)
         dt = self.decision_tree_def(method, max_depth, min_points)
         dt.train(rows)
         return dt, dt.root
     
     def predict(self, rows):
+        """Returns the predictions as a Pd Data
+        Frame. To see the individual predction
+        look at <object>.preds
+        """
         self.predict_rows = rows
         
         # start jobs and return prediction of every dt
         with Pool(processes=self.jobs) as pool:
-            self.preds = pool.map(self._thread_predict,
+            preds = pool.map(self._thread_predict,
                                   range(self.num_of_trees))
         """ For the case of 2 trees
         pred 1
@@ -78,10 +83,13 @@ class RandomForest:
         pred 3
         """
         # reduce to one prediction @TODO
-        with Pool(processes=self.jobs) as pool:
-            preds = pool.map(self._prediction_function,
-                             range(self.num_of_trees))
-        return self._prediction_function(preds)
+        big = pd.DataFrame(preds[0]).transpose()
+        
+        for i in range(1, len(preds)):
+            p = pd.DataFrame(preds[i]).transpose()
+            big = pd.concat((big, p))
+        self.preds = big.transpose() # saving for users to look at
+        return self._prediction_function(big)
     
     def _thread_predict(self, index):
         """Internal function to be called by individual
@@ -111,7 +119,7 @@ class RandomForestClassifier(RandomForest):
                          jobs)
 
     def _prediction_function(self, preds):
-        return helper.most_probable_label(pd.DataFrame(preds))
+        return pd.DataFrame(preds.mode(axis=0))
 
 
 class RandomForestRegression(RandomForest):
@@ -134,5 +142,4 @@ class RandomForestRegression(RandomForest):
                          jobs)
     
     def _prediction_function(self, preds):
-        print (preds)
-        return np.array(preds).mean
+        return pd.DataFrame(preds.mean(axis=0))
