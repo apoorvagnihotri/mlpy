@@ -13,6 +13,7 @@ from multiprocessing import Pool
 import utils as helper
 import pandas as pd
 import numpy as np
+import sys
 
 class RandomForest:
     """you don't want to instantiate this
@@ -37,6 +38,11 @@ class RandomForest:
     def train(self, rows):
         """Use this function to train the RF
         """
+        # frac set to root of num_of_features / num_of_features by default
+        if isinstance(self.frac, type(None)):
+            p = self.rows.size[1] # num of features
+            self.frac = pow(p - 1, 0.5)/p
+        
         # instantiate the decision tree to use
         self.rows = rows
         tupl = [(self.method, self.max_depth, \
@@ -56,9 +62,15 @@ class RandomForest:
         threads
         """
         method, max_depth, min_points, frac = tupl
-        rows_without_label = self.rows.iloc[:, :-1].sample(frac=frac, axis = 1)
-        rows = pd.concat((rows_without_label, self.rows.iloc[:, -1]), axis = 1)
-        dt = self.decision_tree_def(method, max_depth, min_points)
+        rows_without_label = self.rows.iloc[:, :-1].sample(frac=frac,
+                                                           replace=False,
+                                                           axis = 1)
+        rows = pd.concat((rows_without_label,
+                          self.rows.iloc[:, -1]),
+                          axis = 1)
+        dt = self.decision_tree_def(method, 
+                                    max_depth,
+                                    min_points)
         dt.train(rows)
         return dt, dt.root
     
@@ -89,7 +101,7 @@ class RandomForest:
             p = pd.DataFrame(preds[i]).transpose()
             big = pd.concat((big, p))
         self.preds = big.transpose() # saving for users to look at
-        return self._prediction_function(big)
+        return self._prediction_function(big).transpose()
     
     def _thread_predict(self, index):
         """Internal function to be called by individual
