@@ -47,11 +47,11 @@ class RandomForest:
         # instantiate the decision tree to use
         tupl = [(self.method, self.max_depth, \
                 self.min_points, self.frac)]
-        tupl = tupl * self.num_of_trees
+        tupls = tupl * self.num_of_trees
 
         # start jobs
         with Pool(processes=self.jobs) as pool:
-            self.trees = pool.map(self._thread_train, tupl)
+            self.trees = pool.map(self._thread_train, tupls)
             self.roots = [tree.root for tree in self.trees]
         del self.rows
         return self.roots
