@@ -52,6 +52,18 @@ I didn't use dtreeviz as the library is implemented such that it takes in SKLear
 
 ### Answer 6
 
+If we consider the three cases given in the question. The algorithm that does an exhaustive search over all the possible trees would be definitely better as it is able to look at the accuracies obtained from each tree. But since we are searching over the whole possible sets of Decision Trees, the search would take exponential time in the the number of samples.
+
+The model which gives the best and the worst accuracies over the training set are selected.
+
+The performance of the best model with greedy would be comparable as in greedy, we are greedly trying to gain the maximize the information gain using the decision tree but in the case of the exhaustive search we are selecting th model with the best information gain. The information gain of the greedy would be less than or equal to the best model based on the dataset at hand.
+
+
+The performance of the worst would be abssymally bad as the model is not able to gain information from the dataset and is actually explicitly trying to not fit the dataset by taking the worst performing decision tree from the exhaustive search we perform.
+
+
+> ``Optimal`` ~> ``Greedy`` >> ``Worst``
+
 ---
 
 ### Answer 7
