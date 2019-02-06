@@ -8,6 +8,19 @@ numerics = ['int16', 'int32', 'int64', 'float16',
             'float32', 'float64', int, float, 
             np.int16, np.int32, np.int64, np.float16,
             np.float32, np.float64]
+    
+def make_folds(dTrain, folds):
+    '''Make a number of folds with diven pd'''
+    train = shuffle(dTrain)
+    last = train.shape[0]
+    folds = []
+    for i in range(folds):
+        start = i*int(last/folds)
+        end = (i+1)*int(last/folds)
+        if end >= last:
+            end = -1
+        folds.append(train.iloc[start:end, :])
+    return folds
 
 def prepend_ones_col(X):
     """Expecting X to be a 2D array,
