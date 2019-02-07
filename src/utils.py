@@ -13,14 +13,14 @@ def make_folds(dTrain, folds):
     '''Make a number of folds with diven pd'''
     train = shuffle(dTrain)
     last = train.shape[0]
-    folds = []
+    fold_list = []
     for i in range(folds):
         start = i*int(last/folds)
         end = (i+1)*int(last/folds)
         if end >= last:
             end = -1
-        folds.append(train.iloc[start:end, :])
-    return folds
+        fold_list.append(train.iloc[start:end, :])
+    return fold_list
 
 def prepend_ones_col(X):
     """Expecting X to be a 2D array,
