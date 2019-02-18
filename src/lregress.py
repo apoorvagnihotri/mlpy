@@ -10,7 +10,7 @@ from utils import prepend_ones_col
 def lasso_cost(th, X, y, lmbd):
     y_pred = anp.dot(X, th[:, None])
     error_square = anp.square(y[:, None]-y_pred).sum()
-    lasso_error = (lmbd**2)*((anp.absolute(th)).sum())
+    lasso_error = (lmbd)*((anp.absolute(th)).sum())
     r = error_square + lasso_error
     return r
 lasso_grad = grad(lasso_cost)
@@ -38,6 +38,7 @@ def coodrdinateDescentRegression(X, y, it=100):
     X_new = prepend_ones_col(X)
     n, m = X_new.shape
     th = np.array([0.]*m)
+    ths = []
     
     for iteration in range(it): # for a num of iterations
         for i in range(m): # for num of thetas
@@ -45,7 +46,8 @@ def coodrdinateDescentRegression(X, y, it=100):
             y_hat_red = np.dot(np.delete(X_new, i, axis=1), np.delete(th, i, axis=0))
             temp = np.dot(X_new[:,i].T, (y - y_hat_red))
             th[i] = temp / np.matmul(X_new[:, i].T, X_new[:, i])
-    return th
+        ths.append(th)
+    return th, ths
 
 def coodrdinateDescentLasso(X, y, lmbd=0.2, it=100):
     X_new = prepend_ones_col(X)
@@ -71,13 +73,15 @@ def sgdRegression(X, y, alpha = 0.001, it=100):
     X_new = prepend_ones_col(X)
     n, m = X_new.shape
     th = np.zeros(m)
+    ths = []
     for i in range(it):
         for j in range(n):
             yhat = (X_new[j, :] * th).sum()
             e = y[j]-yhat
             weighted_e = X_new[j, :] * e
             th = th + (2*alpha*(weighted_e))
-    return th
+            ths.append(th)
+    return th, ths
     
 def normalEquationRegression(X, y):
     '''Assuming rows correspond to samples'''
