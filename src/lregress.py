@@ -46,7 +46,7 @@ def coodrdinateDescentRegression(X, y, it=100):
             y_hat_red = np.dot(np.delete(X_new, i, axis=1), np.delete(th, i, axis=0))
             temp = np.dot(X_new[:,i].T, (y - y_hat_red))
             th[i] = temp / np.matmul(X_new[:, i].T, X_new[:, i])
-        ths.append(th)
+            ths.append(np.copy(th))
     return th, ths
 
 def coodrdinateDescentLasso(X, y, lmbd=0.2, it=100):
@@ -60,7 +60,7 @@ def coodrdinateDescentLasso(X, y, lmbd=0.2, it=100):
             y_hat_red = np.dot(np.delete(X_new, i, axis=1), np.delete(th, i, axis=0))
             p_i = np.dot(X_new[:,i].T, (y - y_hat_red))
             z_i = np.matmul(X_new[:, i].T, X_new[:, i])
-            const = (lmbd**2)/2
+            const = (lmbd)/2
             if p_i < -const:
                 th[i] = (p_i + const)/z_i
             elif p_i >= -const and p_i <= const:
@@ -80,7 +80,7 @@ def sgdRegression(X, y, alpha = 0.001, it=100):
             e = y[j]-yhat
             weighted_e = X_new[j, :] * e
             th = th + (2*alpha*(weighted_e))
-            ths.append(th)
+            ths.append(np.copy(th))
     return th, ths
     
 def normalEquationRegression(X, y):
