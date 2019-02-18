@@ -9,23 +9,20 @@ from utils import prepend_ones_col
 # cost for autograd
 def lasso_cost(th, X, y, lmbd):
     y_pred = anp.dot(X, th[:, None])
-    error_square = anp.square(y[:, None]-y_pred)
-    lasso_error = anp.linalg.norm(th, ord=1) * (lmbd**2)
-    return error_square.sum() + lasso_error
+    error_square = anp.square(y[:, None]-y_pred).sum()
+    lasso_error = (lmbd**2)*((anp.absolute(th)).sum())
+    r = error_square + lasso_error
+    return r
 lasso_grad = grad(lasso_cost)
-def gradientDescentAutogradRegression(X, y, alpha=0.001, lmbd=0.1, it=300):
+def gradientDescentAutogradLasso(X, y, alpha=0.01, lmbd=0.1, it=300):
     X_new = prepend_ones_col(X)
     X_new = anp.array(X_new)
     y = anp.array(y)
-    n, m = X_new.shape
-    th = anp.random.rand(m)
+    th = anp.random.rand(X_new.shape[1])
     for i in range(it):
         dw = lasso_grad(th, X_new, y, lmbd)
         th = th - alpha*(dw)
     return th
-
-
-
 
 def normalEquationRidgeRegression(X, y, lmbd=0.1):
     '''Assuming rows correspond to samples'''
@@ -101,6 +98,21 @@ def gradientDescentRegression(X, y, alpha=0.001, it=1000):
         weighted_e = X_new * e
         sumz = weighted_e.sum(axis=0)
         th = th + (2*alpha*(sumz))
+    return th
+
+def rms_lost(th, X, y):
+    y_pred = anp.dot(X, th[:, None])
+    error_square = anp.square(y[:, None]-y_pred)
+    return error_square.sum()
+rms_grad = grad(rms_lost)
+def gradientDescentAutogradRegression(X, y, alpha=0.001, it=1000):
+    X_new = prepend_ones_col(X)
+    X_new = anp.array(X_new)
+    n, m = X_new.shape
+    th = anp.array([0.]*m)
+    for i in range(it):
+        dw = rms_grad(th, X_new, y)
+        th = th - alpha*(dw)
     return th
 
 # cost for pytorch
