@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 import numpy as np
 from nodes import *
 import utils as helper
@@ -8,6 +9,46 @@ numerics = ['int16', 'int32', 'int64', 'float16',
             'float32', 'float64', int, float, 
             np.int16, np.int32, np.int64, np.float16,
             np.float32, np.float64]
+
+def train_timer(func, **kwargs):
+    ''' pass in the function you want to time,
+    with the required keyword arguments'''
+    t = Timer()
+    func(**kwargs)
+    val = t.lap()
+    return val
+
+class Timer:
+    def __init__(self):
+        self.start = time.time()
+
+    def reset(self):
+        self.start = time.time()
+
+    def __del__(self):
+        return self.lap()
+
+    def lap(self):
+        self.end = time.time()
+        return self.end - self.start
+
+
+def mode(a, axis=0):
+    scores = np.unique(np.ravel(a))       # get ALL unique values
+    testshape = list(a.shape)
+    testshape[axis] = 1
+    oldmostfreq = np.zeros(testshape)
+    oldcounts = np.zeros(testshape)
+
+    for score in scores:
+        template = (a == score)
+        counts = np.expand_dims(np.sum(template, axis),axis)
+        mostfrequent = np.where(counts > oldcounts, score, oldmostfreq)
+        oldcounts = np.maximum(counts, oldcounts)
+        oldmostfreq = mostfrequent
+
+    return mostfrequent, oldcounts
+
 
 def rmse(pred, true):
     return np.sqrt(np.mean((pred-true)**2))
